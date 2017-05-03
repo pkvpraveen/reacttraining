@@ -187,7 +187,7 @@
 	    }
 	});
 
-	var firstName = 'Amarjeet';
+	var firstName = 'Praveen';
 
 	ReactDOM.render(React.createElement(Greeter, { name: firstName }), document.getElementById('app'));
 

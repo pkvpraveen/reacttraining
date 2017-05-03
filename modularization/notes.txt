@@ -1,1 +1,5 @@
  webpack ./public/app.jsx ./public/bundle.js
+
+webpack  ---- after creating webpack.config.js
+
+webpack -w  ---- for watch mode
