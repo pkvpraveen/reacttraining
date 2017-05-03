@@ -5,6 +5,12 @@ module.exports = {
         filename: './public/bundle.js'
     },
     resolve: {
+        root: __dirname,
+        alias: {
+            Greeter: 'public/components/greeter.jsx',
+            GreeterMessage: 'public/components/greeter-message.jsx',
+            GreeterForm: 'public/components/greeter-form.jsx'
+        },
         extensions: ['', '.js', '.jsx']
     },
     module: {
