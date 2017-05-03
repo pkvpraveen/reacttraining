@@ -5,13 +5,18 @@ var Greeter = React.createClass({
           message:'Welcome to the new world of Blah blah blah...'
       }
     },
+    getInitialState:function () {
+      return{
+          name:this.props.name
+      };
+    },
     onBtnClick:function (e) {
       e.preventDefault();
       var user = this.refs.user.value;
-      alert(user);
+      this.setState({name:user});
     },
     render: function () {
-        var name = this.props.name;
+        var name = this.state.name;
         var message = this.props.message;
         return(
             <div>
