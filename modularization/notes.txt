@@ -3,3 +3,14 @@
 webpack  ---- after creating webpack.config.js
 
 webpack -w  ---- for watch mode
+
+npm install body-parser --save --save-exact ----- to lock the version
+npm shrinkwrap   ----- to create shrinkwrap file for the entire tree
+npm shrinkwrap --dev ------ for dev dependencies
+
+npm install -g npmvet
+npmvet -r inlinetable  ---- to see the package dependency table and locked and unlocked ones
+
+
+npm outdated   --- to see the outdated dependencies and its details
+
