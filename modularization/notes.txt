@@ -1,2 +1,1 @@
- webpack ./public/app.js ./public/bundle.js
- 
+ webpack ./public/app.jsx ./public/bundle.js
