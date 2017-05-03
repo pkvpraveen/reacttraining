@@ -1,24 +1,28 @@
 var Greeter = React.createClass({
     getDefaultProps: function () {
-      return{
-          name:'React',
-          message:'Welcome to the new world of Blah blah blah...'
-      }
+        return {
+            name: 'React',
+            message: 'Welcome to the new world of Blah blah blah...'
+        }
     },
-    getInitialState:function () {
-      return{
-          name:this.props.name
-      };
+    getInitialState: function () {
+        return {
+            name: this.props.name
+        };
     },
-    onBtnClick:function (e) {
-      e.preventDefault();
-      var user = this.refs.user.value;
-      this.setState({name:user});
+    onBtnClick: function (e) {
+        e.preventDefault();
+        let userRef = this.refs.user;
+        var user = userRef.value;
+        userRef.value = "";
+        if (typeof user === 'string' && user.length > 0) {
+            this.setState({name: user});
+        }
     },
     render: function () {
         var name = this.state.name;
         var message = this.props.message;
-        return(
+        return (
             <div>
                 <h1> Hello {name}!</h1>
                 <p>{message}</p>
