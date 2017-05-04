@@ -11,7 +11,6 @@ var Main = React.createClass({
     handleSearch: function (cityName) {
         const that = this;
         this.setState({loading: true});
-        debugger;
         getTemp(cityName).then(function (temp) {
             that.setState({
                 cityName: cityName,
