@@ -14,10 +14,9 @@ var GreeterForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.onFormSubmit}>
+                <h2>Get Temperature</h2>
                 <div>
-                    <input type="text" ref="cityName" placeholder="Enter name"/>
-                </div>
-                <div>
+                    <input type="text" ref="cityName" placeholder="Enter name of the city"/>
                     <button>Submit</button>
                 </div>
             </form>

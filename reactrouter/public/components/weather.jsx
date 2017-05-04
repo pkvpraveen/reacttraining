@@ -28,8 +28,8 @@ var Main = React.createClass({
         const {temp, cityName, loading}= this.state;
         return (
             <div>
-                <GreeterMessage temp={temp} location={cityName} loading={loading}/>
                 <GreeterForm handleSearch={this.handleSearch}/>
+                <GreeterMessage temp={temp} location={cityName} loading={loading}/>
             </div>
         );
     }

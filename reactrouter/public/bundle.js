@@ -24889,7 +24889,8 @@
 	var React = __webpack_require__(1);
 
 	var _require = __webpack_require__(159),
-	    Link = _require.Link;
+	    Link = _require.Link,
+	    IndexLink = _require.IndexLink;
 
 	var Nav = React.createClass({
 	    displayName: 'Nav',
@@ -24904,23 +24905,23 @@
 	                'Navigation'
 	            ),
 	            React.createElement(
-	                Link,
-	                { to: '/' },
+	                IndexLink,
+	                { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
 	                'Get Weather '
 	            ),
 	            React.createElement(
 	                Link,
-	                { to: '/contact-us' },
+	                { to: '/contact-us', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
 	                ' Contact us '
 	            ),
 	            React.createElement(
 	                Link,
-	                { to: '/services' },
+	                { to: '/services', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
 	                'Services '
 	            ),
 	            React.createElement(
 	                Link,
-	                { to: '/login' },
+	                { to: '/login', activeClassName: 'active', activeStyle: { fontWeight: 'bold' } },
 	                'Login'
 	            )
 	        );
@@ -25053,8 +25054,8 @@
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(GreeterMessage, { temp: temp, location: cityName, loading: loading }),
-	            React.createElement(GreeterForm, { handleSearch: this.handleSearch })
+	            React.createElement(GreeterForm, { handleSearch: this.handleSearch }),
+	            React.createElement(GreeterMessage, { temp: temp, location: cityName, loading: loading })
 	        );
 	    }
 	});
@@ -25087,13 +25088,14 @@
 	            'form',
 	            { onSubmit: this.onFormSubmit },
 	            React.createElement(
-	                'div',
+	                'h2',
 	                null,
-	                React.createElement('input', { type: 'text', ref: 'cityName', placeholder: 'Enter name' })
+	                'Get Temperature'
 	            ),
 	            React.createElement(
 	                'div',
 	                null,
+	                React.createElement('input', { type: 'text', ref: 'cityName', placeholder: 'Enter name of the city' }),
 	                React.createElement(
 	                    'button',
 	                    null,
