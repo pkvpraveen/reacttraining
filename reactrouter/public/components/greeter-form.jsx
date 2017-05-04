@@ -3,15 +3,13 @@ var GreeterForm = React.createClass({
     onFormSubmit: function (e) {
         e.preventDefault();
 
-        var updates = {};
         var cityName = this.refs.cityName.value;
 
         if (cityName.length > 0) {
             this.refs.cityName.value = '';
-            updates.cityName = cityName;
+            cityName = cityName;
         }
-
-        this.props.onNewData(updates);
+        this.props.handleSearch(cityName);
     },
     render: function () {
         return (

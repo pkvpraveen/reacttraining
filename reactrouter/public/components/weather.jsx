@@ -1,27 +1,35 @@
 var React = require('react');
 var GreeterForm = require('./greeter-form');
 var GreeterMessage = require('./greeter-message');
+var {getTemp} = require('./api/call-api');
 var Main = React.createClass({
-    getDefaultProps: function () {
-        return {
-            cityName: 'React'
-        };
-    },
     getInitialState: function () {
         return {
-            cityName: this.props.cityName
+            loading: false
         };
     },
-    handleNewData: function (updates) {
-        this.setState(updates);
+    handleSearch: function (cityName) {
+        const that = this;
+        this.setState({loading: true});
+        getTemp(cityName).then(function (temp) {
+            that.setState({
+                cityName: cityName,
+                temp: temp,
+                loading: false
+            });
+        }, function (errorMessage) {
+            that.setState({
+                loading: false
+            });
+            alert(errorMessage);
+        });
     },
     render: function () {
-        var cityName = this.state.cityName;
-
+        const {temp, cityName, loading}= this.state;
         return (
             <div>
-                <GreeterMessage cityName={cityName} />
-                <GreeterForm onNewData={this.handleNewData}/>
+                <GreeterMessage temp={temp} location={cityName} loading={loading}/>
+                <GreeterForm handleSearch={this.handleSearch}/>
             </div>
         );
     }

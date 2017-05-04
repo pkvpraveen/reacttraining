@@ -19779,7 +19779,7 @@
 	            department: this.props.department
 	        };
 	    },
-	    handleNewData: function handleNewData(updates) {
+	    handleSearch: function handleNewData(updates) {
 	        this.setState(updates);
 	    },
 	    render: function render() {
