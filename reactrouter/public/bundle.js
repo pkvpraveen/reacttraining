@@ -25014,24 +25014,113 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var Nav = __webpack_require__(217);
+	var GreeterForm = __webpack_require__(222);
+	var GreeterMessage = __webpack_require__(223);
 	var Main = React.createClass({
 	    displayName: 'Main',
 
+	    getDefaultProps: function getDefaultProps() {
+	        return {
+	            cityName: 'React'
+	        };
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            cityName: this.props.cityName
+	        };
+	    },
+	    handleNewData: function handleNewData(updates) {
+	        this.setState(updates);
+	    },
 	    render: function render() {
+	        var cityName = this.state.cityName;
+
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(GreeterMessage, { cityName: cityName }),
+	            React.createElement(GreeterForm, { onNewData: this.handleNewData })
+	        );
+	    }
+	});
+
+	module.exports = Main;
+
+/***/ }),
+/* 222 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var GreeterForm = React.createClass({
+	    displayName: 'GreeterForm',
+
+	    onFormSubmit: function onFormSubmit(e) {
+	        e.preventDefault();
+
+	        var updates = {};
+	        var cityName = this.refs.cityName.value;
+
+	        if (cityName.length > 0) {
+	            this.refs.cityName.value = '';
+	            updates.cityName = cityName;
+	        }
+
+	        this.props.onNewData(updates);
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'form',
+	            { onSubmit: this.onFormSubmit },
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement('input', { type: 'text', ref: 'cityName', placeholder: 'Enter name' })
+	            ),
+	            React.createElement(
+	                'div',
+	                null,
+	                React.createElement(
+	                    'button',
+	                    null,
+	                    'Submit'
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = GreeterForm;
+
+/***/ }),
+/* 223 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var GreeterMessage = React.createClass({
+	    displayName: 'GreeterMessage',
+
+	    render: function render() {
+	        var cityName = this.props.cityName;
+
 	        return React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
 	                'h1',
 	                null,
-	                ' Weather'
+	                'Hello ',
+	                cityName,
+	                '!'
 	            )
 	        );
 	    }
 	});
 
-	module.exports = Main;
+	module.exports = GreeterMessage;
 
 /***/ })
 /******/ ]);
