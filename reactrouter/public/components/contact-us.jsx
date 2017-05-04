@@ -4,9 +4,7 @@ var Main = React.createClass({
     render: function () {
         return (
             <div>
-                <Nav/>
-                <h1> Main page</h1>
-                {this.props.children}
+                <h1> Conatact Us</h1>
             </div>
         );
     }
