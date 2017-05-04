@@ -25032,6 +25032,7 @@
 	    handleSearch: function handleSearch(cityName) {
 	        var that = this;
 	        this.setState({ loading: true });
+	        debugger;
 	        getTemp(cityName).then(function (temp) {
 	            that.setState({
 	                cityName: cityName,
