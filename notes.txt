@@ -1,3 +1,5 @@
 https://babeljs.io/repl/  -- for seeing the babaled code
 react dev tools plugin for chrome
 $r in browser console for viewing the hierarchy
+
+karma init  ---- to initialize karma.conf.js
