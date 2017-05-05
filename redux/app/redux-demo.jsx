@@ -1,6 +1,6 @@
-var redux = require('redux');
+import {createStore} from 'redux';
 
-var reducer = (state = {name: 'Anonymous'}, action) => {
+const reducer = (state = {name: 'Anonymous'}, action) => {
     switch (action.type) {
         case 'CHANGE_NAME':
             return {
@@ -13,7 +13,7 @@ var reducer = (state = {name: 'Anonymous'}, action) => {
     }
 };
 
-var store = redux.createStore(reducer);
+const store = createStore(reducer);
 store.subscribe(()=>{
     let state = store.getState();
     console.log( state);
