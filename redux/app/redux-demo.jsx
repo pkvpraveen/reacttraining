@@ -1,39 +1,38 @@
-import {createStore,compose} from 'redux';
+import {createStore, compose, combineReducers} from 'redux';
 
-let initialState = {name: 'Anonymous', hobbies: []};
 let hobbyId = 1;
-const reducer = (state = initialState, action) => {
+const nameReducer = (state = 'Anonymous', action) => {
     switch (action.type) {
         case 'CHANGE_NAME':
-            return {
-                ...state,
-                name: action.data
-            };
-        case 'ADD_HOBBY':
-            return {
-                ...state,
-                hobbies: [
-                    ...state.hobbies,
-                    {
-                        id: hobbyId++,
-                        hobby: action.data
-                    }
-                ]
-            };
-        case 'REMOVE_HOBBY':
-            return {
-                ...state,
-                hobbies: state.hobbies.filter((hobby) => hobby.id !== action.data)
-            };
+            return action.data;
         default:
             return state;
     }
 };
-
+const hobbyReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_HOBBY':
+            return [
+                ...state,
+                {
+                    id: hobbyId++,
+                    hobby: action.data
+                }
+            ];
+        case 'REMOVE_HOBBY':
+            return state.filter((hobby) => hobby.id !== action.data);
+        default:
+            return state;
+    }
+};
+const reducer = combineReducers({
+    name: nameReducer,
+    hobbies: hobbyReducer
+});
 const store = createStore(reducer, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
-const unsubscribe =store.subscribe(() => {
+const unsubscribe = store.subscribe(() => {
     let state = store.getState();
     document.getElementById('app').innerHTML = state.name;
     console.log(state);
