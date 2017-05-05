@@ -9,6 +9,13 @@ const nameReducer = (state = 'Anonymous', action) => {
             return state;
     }
 };
+
+const changeName = (name) => {
+    return {
+        type: 'CHANGE_NAME',
+        data: name
+    };
+};
 const hobbyReducer = (state = [], action) => {
     switch (action.type) {
         case 'ADD_HOBBY':
@@ -25,6 +32,21 @@ const hobbyReducer = (state = [], action) => {
             return state;
     }
 };
+
+const addHobby = (hobby) => {
+    return {
+        type: 'ADD_HOBBY',
+        data: hobby
+    };
+};
+
+const removeHobby = (id) => {
+    return {
+        type: 'REMOVE_HOBBY',
+        data: id
+    };
+};
+
 const reducer = combineReducers({
     name: nameReducer,
     hobbies: hobbyReducer
@@ -39,29 +61,12 @@ const unsubscribe = store.subscribe(() => {
 });
 
 
-store.dispatch({
-    type: 'CHANGE_NAME',
-    data: 'Praveen'
-});
+store.dispatch(changeName('Praveen'));
 
-store.dispatch({
-    type: 'CHANGE_NAME',
-    data: 'Praveen Kumar'
-});
+store.dispatch(changeName('Praveen Kumar'));
 
-store.dispatch({
-    type: 'ADD_HOBBY',
-    data: 'Swimming'
-});
+store.dispatch(addHobby('Swimming'));
+store.dispatch(addHobby('Running'));
+store.dispatch(removeHobby(1));
 
 // unsubscribe();
-
-store.dispatch({
-    type: 'ADD_HOBBY',
-    data: 'Running'
-});
-
-store.dispatch({
-    type: 'REMOVE_HOBBY',
-    data: 1
-});
