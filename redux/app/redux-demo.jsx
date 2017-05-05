@@ -20,6 +20,11 @@ const reducer = (state = initialState, action) => {
                     }
                 ]
             };
+        case 'REMOVE_HOBBY':
+            return {
+                ...state,
+                hobbies: state.hobbies.filter((hobby) => hobby.id !== action.data)
+            };
         default:
             return state;
     }
@@ -45,4 +50,14 @@ store.dispatch({
 store.dispatch({
     type: 'ADD_HOBBY',
     data: 'Swimming'
+});
+
+store.dispatch({
+    type: 'ADD_HOBBY',
+    data: 'Running'
+});
+
+store.dispatch({
+    type: 'REMOVE_HOBBY',
+    data: 1
 });
