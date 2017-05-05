@@ -1,72 +1,59 @@
 import {createStore, compose, combineReducers} from 'redux';
+import axios from 'axios';
 
-let hobbyId = 1;
-const nameReducer = (state = 'Anonymous', action) => {
+const mapReducer = (state = {isFetching: false, url: undefined}, action) => {
     switch (action.type) {
-        case 'CHANGE_NAME':
-            return action.data;
+        case 'START_LOCATION_FETCH':
+            return {
+                isFetching: true,
+                url: undefined
+            };
+        case 'COMPLETE_LOCATION_FETCH':
+            return {
+                isFetching: false,
+                url: action.url
+            };
         default:
             return state;
     }
 };
 
-const changeName = (name) => {
+const startLocationFetch = () => {
     return {
-        type: 'CHANGE_NAME',
-        data: name
-    };
-};
-const hobbyReducer = (state = [], action) => {
-    switch (action.type) {
-        case 'ADD_HOBBY':
-            return [
-                ...state,
-                {
-                    id: hobbyId++,
-                    hobby: action.data
-                }
-            ];
-        case 'REMOVE_HOBBY':
-            return state.filter((hobby) => hobby.id !== action.data);
-        default:
-            return state;
-    }
-};
-
-const addHobby = (hobby) => {
-    return {
-        type: 'ADD_HOBBY',
-        data: hobby
+        type: 'START_LOCATION_FETCH'
     };
 };
 
-const removeHobby = (id) => {
+const completeLocationFetch = (url) => {
     return {
-        type: 'REMOVE_HOBBY',
-        data: id
+        type: 'COMPLETE_LOCATION_FETCH',
+        url
     };
+};
+
+const fetchLocation = () => {
+    store.dispatch(startLocationFetch());
+    axios.get('http://ipinfo.io').then((response) => {
+        const location = response.data.loc;
+        const locationUrl = `http://maps.google.com?q=${location}`;
+        store.dispatch(completeLocationFetch(locationUrl));
+    });
 };
 
 const reducer = combineReducers({
-    name: nameReducer,
-    hobbies: hobbyReducer
+    map: mapReducer
 });
 const store = createStore(reducer, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
-const unsubscribe = store.subscribe(() => {
-    let state = store.getState();
-    document.getElementById('app').innerHTML = state.name;
-    console.log(state);
+store.subscribe(() => {
+    const state = store.getState();
+    if (state.map.isFetching) {
+        document.getElementById('app').innerHTML = 'Loading...';
+    } else {
+        document.getElementById('app').innerHTML =
+            `<a href="${state.map.url}" target="_blank">View Your Location</a>`;
+    }
 });
 
-
-store.dispatch(changeName('Praveen'));
-
-store.dispatch(changeName('Praveen Kumar'));
-
-store.dispatch(addHobby('Swimming'));
-store.dispatch(addHobby('Running'));
-store.dispatch(removeHobby(1));
-
-// unsubscribe();
+fetchLocation();
