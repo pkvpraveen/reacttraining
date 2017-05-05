@@ -1,4 +1,4 @@
-import {createStore} from 'redux';
+import {createStore,compose} from 'redux';
 
 let initialState = {name: 'Anonymous', hobbies: []};
 let hobbyId = 1;
@@ -30,9 +30,12 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-const store = createStore(reducer);
-store.subscribe(() => {
+const store = createStore(reducer, compose(
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+));
+const unsubscribe =store.subscribe(() => {
     let state = store.getState();
+    document.getElementById('app').innerHTML = state.name;
     console.log(state);
 });
 
@@ -51,6 +54,8 @@ store.dispatch({
     type: 'ADD_HOBBY',
     data: 'Swimming'
 });
+
+// unsubscribe();
 
 store.dispatch({
     type: 'ADD_HOBBY',
